@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:match*",
-      "destination": "https://netease-cloud-music-813x6xorm-98lym.vercel.app/:match*"
+      "destination": "https://netease-cloud-music-api-gamma-snowy.vercel.app/:match*"
     }
   ]
 }
