@@ -37,7 +37,6 @@
 import { defineComponent, reactive, ref } from 'vue';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
-// import { message } from 'ant-design-vue'
 export default defineComponent({
   name: '_Login',
   setup: function () {

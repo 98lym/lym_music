@@ -1,5 +1,5 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
-// import { message } from 'ant-design-vue'
+import { notification } from 'ant-design-vue';
 import { login,logout } from '@/api/login'
 import { songUrl,getLyric } from '@/api/songSheet'
 const user = {
@@ -35,16 +35,28 @@ const user = {
     },
     actions: {
         // 登录
-        async login(context, data) {
-            const res = await login(data)
-            try {
-                context.commit('setToken', res.token)
-                localStorage.setItem('uid',res.account.id)
-                localStorage.setItem('avatarUrl', res.profile.avatarUrl)
-                // context.commit('setToken', res.cookie)
-            } catch (error) {
-                // message.error(error.message)
-            }
+         login(context, data) {
+          login(data).then(res=>{
+            if(res.code===200){
+              context.commit('setToken', res.token)
+              localStorage.setItem('uid',res.account.id)
+              localStorage.setItem('avatarUrl', res.profile.avatarUrl)
+              notification.open({
+                message: '登录成功',
+                duration: 3,
+              });
+              return
+            }     
+            notification.open({
+              message: res.message,
+              duration: 3,
+            });
+          }).catch(()=>{
+            notification.open({
+              message: '登录失败',
+              duration: 3,
+            });
+          })
         },
         // 退出
         logOut ({commit,state}) {

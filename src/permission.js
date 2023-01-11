@@ -8,7 +8,7 @@ const whiteList = ['/login', '/NotFount'] // 定义白名单  所有不受权限
 router.beforeEach(function (to, from, next) {
     NProgress.start() // 开启进度条
     //  首先判断有无token
-    if (store.getters.token) {
+    if (store.getters.token&& store.getters.token!==undefined) {
         //   如果有token 继续判断是不是去登录页
         if (to.path === '/login') {
             //  表示去的是登录页
