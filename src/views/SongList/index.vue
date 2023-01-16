@@ -1,6 +1,6 @@
 <template>
   <div class="container md:max-w-full md:px-52 songlist">
-    <div class="md:mt-10 flex md:flex-row">
+    <div class="md:mt-10 flex md:flex-row" >
       <div>
         <img class="md:rounded-lg md:w-60" :src="playlist.coverImgUrl" alt="">
       </div>
@@ -8,6 +8,9 @@
         <div class=" text-gray-50 md:text-2xl">歌单：{{ playlist.name }}</div>
         <div class=" text-gray-50 md:text-2xl">{{ createTime }} 创建</div>
         <div class=" text-gray-50 md:text-2xl">播放：{{ playlist.playCount }}次</div>
+        <div class="md:mt-5">
+          <svg-icon @click="playAll" name="play" class="md:text-5xl text-red-600 active:text-red-900"></svg-icon>
+        </div>
       </div>
     </div>
     <div>
@@ -21,6 +24,7 @@
               {{ index+ 1}}
               <svg-icon class=" 
                 text-red-600
+                active:text-red-900
                   md:absolute 
                   md:left-1/2 md:top-1/2 
                   md:translate-x-[-50%] 
@@ -80,13 +84,26 @@ export default defineComponent({
         }
       })
     })
-    // 音乐播放
+    // 音乐播放(单首)
     const playSong = (record) => {
       store.dispatch('playSong', record)
+    }
+     // 播放全部
+     const playAll=()=>{
+    const songData = data.songs.map(item=>{
+       return {
+        id:item.id,
+        name:item.name,
+        ar:item.ar,
+        al:item.al
+       }
+    })
+    store.dispatch('playAllSong', songData)
     }
     return {
       ...toRefs(data),
       playSong,
+      playAll,
       route
     }
   }
@@ -94,6 +111,10 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .songlist::v-deep {
+  svg {
+    display: inline;
+  }
+
   .ant-table {
     color: white;
     --tw-bg-opacity: 0;
@@ -115,7 +136,9 @@ export default defineComponent({
       --tw-bg-opacity: 0;
       background-color: rgb(17 24 39 / var(--tw-bg-opacity));
     }
-    .ant-table-tbody > tr.ant-table-row:hover > td, .ant-table-tbody > tr > td.ant-table-cell-row-hover {
+
+    .ant-table-tbody>tr.ant-table-row:hover>td,
+    .ant-table-tbody>tr>td.ant-table-cell-row-hover {
       --tw-bg-opacity: 0;
       background-color: rgb(17 24 39 / var(--tw-bg-opacity));
     }

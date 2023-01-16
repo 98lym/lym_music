@@ -31,19 +31,26 @@ const routes = [
         name:'My',
         component:()=> import('@/views/My'),
         meta:{
-          keepAlive: true //设置页面是否需要使用缓存
+          keepAlive: true
         }
       },
       {
-        path:'/SongList',
+        path:'/songList',
         name:'SongList',
         component:()=> import('@/views/SongList'),
         meta:{
-          keepAlive: false //设置页面是否需要使用缓存
+          keepAlive: false
+        }
+      },
+      {
+        path:'/SongSheet',
+        name:'SongSheet',
+        component:()=> import('@/views/SongSheet'),
+        meta:{
+          keepAlive: true
         }
       }
     ]
-    // hidden: true
   },        
   {
     path: '/*',

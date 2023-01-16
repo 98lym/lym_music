@@ -57,15 +57,15 @@ export default defineComponent({
         default: "rgba(255,255,255,0.2)"
       },
       // 音频循环播放
-      // loop: {
-      //   type: String,
-      //   default: 'one' //'all' | 'one' | 'none'
-      // },
-      // // 音频循环顺序
-      // order: {
-      //   type: String,
-      //   default: 'random' //'list' | 'random'
-      // },
+      loop: {
+        type: String,
+        default: 'one' //'all' | 'one' | 'none'
+      },
+      // 音频循环顺序
+      order: {
+        type: String,
+        default: 'random' //'list' | 'random'
+      },
       // // 预加载
       preload: {
         type: String,
@@ -105,29 +105,29 @@ export default defineComponent({
       //   default: 1
       // },
       // 列表是否默认折叠
-      // listFolded: {
-      //   type: Boolean,
-      //   default: true
-      // },
-      // // 列表最大高度
-      // listMaxHeight: {
-      //   type: String,
-      //   default: '100px'
-      // },
+      listFolded: {
+        type: Boolean,
+        default: true
+      },
+      // 列表最大高度
+      listMaxHeight: {
+        type: String,
+        default: '100%'
+      },
       // // 存储播放器设置的 localStorage key
       // storageName: {
       //   type: String,
       //   default: 'aplayer-setting'
       // },
     })
-    const lyric = computed({
-      get: () => store.getters.lyric
-    })
+    // const lyric = computed({
+    //   get: () => store.getters.lyric
+    // })
     const songData = computed(() => store.getters.songData)
     watch(
       () => songData,
       (newValue, oldValue) => {
-        let audioList = new Audio(newValue._value.author, newValue._value.title, newValue._value.url, newValue._value.pic, lyric.value)
+        let audioList = new Audio(newValue._value.author, newValue._value.title, newValue._value.url, newValue._value.pic) // lyric.value
         state.instance = new APlayer({
           container: playerRef.value,
           // fixed: props.fixed,
@@ -144,6 +144,23 @@ export default defineComponent({
           // listMaxHeight: props.listMaxHeight,
           // storageName: props.storageName,
           audio: audioList
+        })
+      },
+      { deep: true }
+    )
+    const songAllUrl = computed(() => store.getters.songAllUrl)
+    watch(
+      () => songAllUrl,
+      (newValue, oldValue) => {
+        state.instance = new APlayer({
+          container: playerRef.value,
+          autoplay: props.autoplay,
+          theme: props.theme,
+          preload: props.preload,
+          mutex: props.mutex,
+          listFolded: props.listFolded,
+          listMaxHeight: props.listMaxHeight,
+          audio: newValue._value
         })
       },
       { deep: true }
@@ -166,33 +183,92 @@ export default defineComponent({
 })
 </script>
 <style lang="scss" scoped>
-.aplayer::v-deep {
-  position: relative;
-  --tw-bg-opacity: 0;
-  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
-  margin: 0px;
+@media (min-width: 768px) {
+  .aplayer::v-deep {
+    position: relative;
+    --tw-bg-opacity: 0;
+    background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+    margin: 0px;
 
-  // border: 1px solid #e0e0e0;
-  // border-radius: 4px;
-  .aplayer-body .aplayer-info {
-    .aplayer-music {
-      .aplayer-title {
-        color: #c20c0c;
-      }
+    // border: 1px solid #e0e0e0;
+    // border-radius: 4px;
+    .aplayer-body {
+      .aplayer-info {
+        .aplayer-music {
+          .aplayer-title {
+            --tw-text-opacity: 1;
+            color: rgb(225 29 72 / var(--tw-text-opacity));
+          }
 
-      .aplayer-author {
-        color: #c20c0c;
+          .aplayer-author {
+            --tw-text-opacity: 1;
+            color: rgb(225 29 72 / var(--tw-text-opacity));
+          }
+        }
+
+        .aplayer-played {
+          --tw-text-opacity: 1;
+          background-color: rgb(225 29 72 / var(--tw-text-opacity));
+
+          .aplayer-thumb {
+            --tw-text-opacity: 1;
+            background-color: rgb(225 29 72 / var(--tw-text-opacity));
+          }
+        }
+
+        .aplayer-volume {
+          --tw-text-opacity: 1;
+          background-color: rgb(225 29 72 / var(--tw-text-opacity));
+        }
       }
     }
-    
-    .aplayer-played {
-      background-color: #c20c0c;
-      .aplayer-thumb{
-        background-color: #c20c0c;
+
+    .aplayer-list {
+      height: 290px;
+      overflow-y: scroll;
+      position: fixed;
+      top: -18rem;
+      right: 13rem;
+      width: 23rem;
+      background-color: rgb(17 24 39);
+
+      ol {
+        li {
+        border-top: 1px solid #001529;
+        --tw-text-opacity: 1;
+        color: rgb(225 29 72 / var(--tw-text-opacity));
+        .aplayer-list-light{
+          background-color: skyblue !important;
+        }
+        .aplayer-list-index {
+          --tw-text-opacity: 1;
+          color: rgb(225 29 72 / var(--tw-text-opacity));
+        }
+        .aplayer-list-author {
+          --tw-text-opacity: 1;
+          color: rgb(225 29 72 / var(--tw-text-opacity));
+        }
+      }
       }
     }
-    .aplayer-volume {
-      background-color: #c20c0c;
+
+    .aplayer-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .aplayer-list::-webkit-scrollbar-thumb {
+      z-index: 999;
+      --tw-text-opacity: 1;
+      background: rgb(225 29 72 / var(--tw-text-opacity));
+      border-radius: 10px;
+      // box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .aplayer-list::-webkit-scrollbar-track {
+      // box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+      border-radius: 0;
+      --tw-bg-opacity: 1;
+      background-color: rgb(17 24 39 / var(--tw-bg-opacity));
     }
   }
 }

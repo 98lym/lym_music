@@ -14,7 +14,9 @@
         <div class="md:antialiased text-gray-50 md:text-3xl md:mr-8 navbarLineHeight">
           <button :class="{ active: route.name === 'My' }" @click="goMy">我的</button>
         </div>
-        <div class="md:antialiased text-gray-50 md:text-3xl navbarLineHeight">音乐库</div>
+        <div class="md:antialiased text-gray-50 md:text-3xl navbarLineHeight">
+          <button :class="{ active: route.name === 'SongSheet' }" @click="goShongSheet">音乐库</button>
+        </div>
       </div>
       <div class="md:mr-10 md:rounded-full md:h-16 md:w-12 relative">
         <a-dropdown>
@@ -44,7 +46,7 @@
     </router-view>
     <div class=" md:h-16"></div>
     <div
-      class="bgBackdrop bg-white md:h-16 inset-x-0 bottom-0  dark:bg-gray-900 md:bg-opacity-70 fixed md:w-screen z-20 md:px-52">
+      class="bgBackdrop bg-white md:h-16 inset-x-0 bottom-0  dark:bg-gray-900 md:bg-opacity-70 fixed md:w-screen z-40 md:px-52">
       <div class=" navbarLineHeight md:w-full">
         <Aplayer></Aplayer>
       </div>
@@ -74,13 +76,16 @@ export default defineComponent({
     const goMy = () => {
       router.push("/my")
     }
+    const goShongSheet = () => {
+      router.push('/songSheet')
+    }
     // 签到
     const signInFn = () => {
       signIn({ type: 1 }).then(res => {
         if (ref.code === 200) {
           notification.open({
-            message: res.msg,
-            duration: 3,
+            message: '签到成功',
+            duration: 0,
             style: {
               width: '200px',
             },
@@ -127,6 +132,7 @@ export default defineComponent({
       route,
       goHome,
       goMy,
+      goShongSheet,
       back,
       go,
       signInFn
@@ -144,7 +150,7 @@ export default defineComponent({
 }
 
 .active {
-  color: #c20c0c;
+  color: #e11d48
 }
 
 svg {

@@ -4,6 +4,7 @@ import router from './router'
 import NProgress from 'nprogress' // 引入一份进度条插件
 import 'nprogress/nprogress.css' // 引入进度条样式
 const whiteList = ['/login', '/NotFount'] // 定义白名单  所有不受权限控制的页面
+NProgress.configure({ showSpinner: false });
 // 路由的前置守卫
 router.beforeEach(function (to, from, next) {
     NProgress.start() // 开启进度条

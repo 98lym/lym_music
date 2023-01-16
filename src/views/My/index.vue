@@ -7,8 +7,8 @@ export default defineComponent({
   setup () {
     const state = reactive({
       viewAll: '查看全部',
-      viewAllStatus1:false,
-      viewAllStatus2:false,
+      viewAllStatus1: false,
+      viewAllStatus2: false,
       artistCount: null, // 我的歌手数量
       createdPlaylistCount: null, // 创建的歌单数量
       subPlaylistCount: null, // 收藏的歌单数量
@@ -61,11 +61,12 @@ export default defineComponent({
   <div class="container md:max-w-full md:px-52">
     <div class="flex md:flex-row md:justify-between md:text-4xl md:font-semibold md:mb-5 md:mt-10 text-gray-50">
       <div>创建的歌单</div>
-      <div class="md:text-lg lineHeight" @click="viewAllStatus1=true">{{ viewAll }}</div>
+      <div class="md:text-lg lineHeight" @click="viewAllStatus1 = true">{{ viewAll }}</div>
     </div>
     <div class="grid md:grid-cols-5 md:gap-x-4 md:gap-y-6">
-      <div v-for="item in (viewAllStatus1?getPlaylists :getPlaylists.slice(0, 10))" :key="item.id" class="group" @click="getPlaylistDetail(item)">
-        <div class="relative">
+      <div v-for="item in (viewAllStatus1 ? getPlaylists : getPlaylists.slice(0, 10))" :key="item.id"
+        @click="getPlaylistDetail(item)">
+        <div class="relative group">
           <div class="group-hover:bg-gray-300 
           md:rounded-full md:w-16 
           opacity-50 md:h-16 
@@ -82,10 +83,11 @@ export default defineComponent({
     </div>
     <div class="flex md:flex-row md:justify-between md:text-4xl md:font-semibold md:mb-5 md:mt-10 text-gray-50">
       <div>收藏的歌单</div>
-      <div class="md:text-lg lineHeight" @click="viewAllStatus2=true">{{ viewAll }}</div>
+      <div class="md:text-lg lineHeight" @click="viewAllStatus2 = true">{{ viewAll }}</div>
     </div>
     <div class="grid md:grid-cols-5 md:gap-x-4 md:gap-y-6">
-      <div v-for="item in (viewAllStatus2?collectSongList:collectSongList.slice(0, 10))" :key="item.id" class="group" @click="getPlaylistDetail(item)">
+      <div v-for="item in (viewAllStatus2 ? collectSongList : collectSongList.slice(0, 10))" :key="item.id" class="group"
+        @click="getPlaylistDetail(item)">
         <div class="relative">
           <div class="group-hover:bg-gray-300 
           md:rounded-full md:w-16 

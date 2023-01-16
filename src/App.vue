@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-      <router-view />
+    <router-view />
   </div>
 </template>
 <script>
@@ -26,8 +26,6 @@ body {
   scrollbar-width: none;
 }
 
-
-
 /*滚动条样式*/
 #app::-webkit-scrollbar {
   width: 6px;
@@ -35,7 +33,8 @@ body {
 
 #app::-webkit-scrollbar-thumb {
   z-index: 999;
-  background: rgba(11, 225, 57, 0.87);
+  --tw-text-opacity: 1;
+  background: rgb(225 29 72 / var(--tw-text-opacity));
   border-radius: 10px;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
 }

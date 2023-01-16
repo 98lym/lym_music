@@ -15,3 +15,11 @@ export function personalFm(params) {
     params: params,
   })
 }
+// 获取每日推荐歌曲
+export function recommendSongs(params) {
+  return axios({
+    method: 'get',
+    url:'/recommend/songs',
+    params: params,
+  })
+}

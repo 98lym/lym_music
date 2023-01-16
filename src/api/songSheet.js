@@ -31,3 +31,19 @@ export function getLyric(params) {
     params: params,
   })
 }
+// 歌单分类 说明 : 调用此接口,可获取歌单分类
+export function playlistCatlist(params) {
+  return axios({
+    method: 'get',
+    url:'/playlist/catlist',
+    params: params,
+  })
+}
+// 歌单 ( 网友精选碟 ) 说明 : 调用此接口 , 可获取网友精选碟歌单
+export function topPlaylist(params) {
+  return axios({
+    method: 'get',
+    url:'/top/playlist',
+    params: params,
+  })
+}
