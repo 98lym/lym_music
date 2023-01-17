@@ -61,7 +61,7 @@ export default defineComponent({
   <div class="container md:max-w-full md:px-52">
     <div class="flex md:flex-row md:justify-between md:text-4xl md:font-semibold md:mb-5 md:mt-10 text-gray-50">
       <div>创建的歌单</div>
-      <div class="md:text-lg lineHeight" @click="viewAllStatus1 = true">{{ viewAll }}</div>
+      <div class="md:text-lg lineHeight cursor-pointer" @click="viewAllStatus1 = true">{{ viewAll }}</div>
     </div>
     <div class="grid md:grid-cols-5 md:gap-x-4 md:gap-y-6">
       <div v-for="item in (viewAllStatus1 ? getPlaylists : getPlaylists.slice(0, 10))" :key="item.id"
@@ -83,7 +83,7 @@ export default defineComponent({
     </div>
     <div class="flex md:flex-row md:justify-between md:text-4xl md:font-semibold md:mb-5 md:mt-10 text-gray-50">
       <div>收藏的歌单</div>
-      <div class="md:text-lg lineHeight" @click="viewAllStatus2 = true">{{ viewAll }}</div>
+      <div class="md:text-lg lineHeight cursor-pointer" @click="viewAllStatus2 = true">{{ viewAll }}</div>
     </div>
     <div class="grid md:grid-cols-5 md:gap-x-4 md:gap-y-6">
       <div v-for="item in (viewAllStatus2 ? collectSongList : collectSongList.slice(0, 10))" :key="item.id" class="group"

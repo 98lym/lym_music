@@ -3,7 +3,7 @@
   <div class="container md:max-w-full md:px-52">
       <div class="flex md:flex-row md:justify-between md:text-4xl md:font-semibold md:mb-5 md:mt-10 text-gray-50">
         <div>推荐歌单</div>
-        <div class="md:text-lg lineHeight" @click="goAllSongSheet">{{ viewAll }}</div>
+        <div class="md:text-lg lineHeight cursor-pointer" @click="goAllSongSheet">{{ viewAll }}</div>
       </div>
       <div class="grid md:grid-cols-5 md:gap-x-4 md:gap-y-6">
         <div v-for="item in recommendedSongList" :key="item.id" class="group" @click="getPlaylistDetail(item)">
