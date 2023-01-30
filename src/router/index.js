@@ -49,6 +49,14 @@ const routes = [
         meta:{
           keepAlive: true
         }
+      },
+      {
+        path:'/CloudSearch',
+        nameL:'CloudSearch',
+        meta:{
+          keepAlive: false
+        },
+        component:()=> import('@/views/CloudSearch')
       }
     ]
   },        

@@ -1,8 +1,7 @@
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { notification } from 'ant-design-vue';
-import { login, logout } from '@/api/login'
+import { login, logout ,loginStatus} from '@/api/login'
 import { songUrl, getLyric } from '@/api/songSheet'
-import { Item } from 'ant-design-vue/lib/menu';
 const user = {
   state: {
     token: getToken(),
@@ -70,6 +69,17 @@ const user = {
         });
       })
     },
+    // 二维码登录
+    qrLogin(context, cookie) {
+      context.commit('setToken', cookie)
+      loginStatus().then(res=>{
+        console.log(res,'rq');
+      })
+      notification.open({
+        message: '登录成功',
+        duration: 3,
+      });
+    },
     // 退出
     logOut ({ commit, state }) {
       return new Promise(resolve => {
@@ -122,7 +132,7 @@ const user = {
           context.commit('getAllSong', songAllUrl)
         }
       })
-    }
+    },
   }
 }
 export default user

@@ -23,3 +23,12 @@ export function recommendSongs(params) {
     params: params,
   })
 }
+
+// 搜索
+export function cloudsearch(params) {
+  return axios({
+    method: 'get',
+    url:'/cloudsearch',
+    params: params,
+  })
+}

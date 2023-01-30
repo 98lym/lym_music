@@ -1,13 +1,15 @@
 <template>
   <div class="container md:max-w-full md:px-52 songlist">
-    <div class="md:mt-10 flex md:flex-row" >
-      <div>
-        <img class="md:rounded-lg md:w-60" :src="playlist.coverImgUrl" alt="">
+    <div class="md:mt-10 flex md:flex-row">
+      <div class="imgbox">
+        <img class="md:rounded-lg md:w-60 img" :src="playlist.coverImgUrl" alt="">
+        <div class="img_shadow" :style="{ backgroundImage: 'url(' + playlist.coverImgUrl + ')', backgroundSize: 'cover' }"></div>
       </div>
       <div class="md:ml-10">
-        <div class=" text-gray-50 md:text-2xl">歌单：{{ playlist.name }}</div>
+        <div class=" text-gray-50 md:text-5xl subpixel-antialiased font-medium">{{ playlist.name }}</div>
         <div class=" text-gray-50 md:text-2xl">{{ createTime }} 创建</div>
-        <div class=" text-gray-50 md:text-2xl">播放：{{ playlist.playCount }}次</div>
+        <div class=" text-gray-50 md:text-2xl">{{ playlist.playCount }}次播放</div>
+        <div class="text-gray-50">{{ playlist.description }}</div>
         <div class="md:mt-5">
           <svg-icon @click="playAll" name="play" class="md:text-5xl text-red-600 active:text-red-900"></svg-icon>
         </div>
@@ -88,17 +90,17 @@ export default defineComponent({
     const playSong = (record) => {
       store.dispatch('playSong', record)
     }
-     // 播放全部
-     const playAll=()=>{
-    const songData = data.songs.map(item=>{
-       return {
-        id:item.id,
-        name:item.name,
-        ar:item.ar,
-        al:item.al
-       }
-    })
-    store.dispatch('playAllSong', songData)
+    // 播放全部
+    const playAll = () => {
+      const songData = data.songs.map(item => {
+        return {
+          id: item.id,
+          name: item.name,
+          ar: item.ar,
+          al: item.al
+        }
+      })
+      store.dispatch('playAllSong', songData)
     }
     return {
       ...toRefs(data),
@@ -111,6 +113,27 @@ export default defineComponent({
 </script>
 <style lang="scss" scoped>
 .songlist::v-deep {
+  .imgbox {
+    position: relative;
+
+    .img {
+      position: relative;
+      z-index: 2;
+    }
+
+    .img_shadow {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 12px;
+      z-index: 0;
+      filter: blur(16px) opacity(.6);
+      transform: scale(.92, .96);
+      border-radius: .75em;
+      aspect-ratio: 1/1;
+    }
+  }
+
   svg {
     display: inline;
   }

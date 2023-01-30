@@ -15,7 +15,7 @@
             md:left-1/2 md:top-1/2 
             md:translate-x-[-50%] 
             md:translate-y-[-50%] 
-            z-40"></div>
+            z-20"></div>
           <img class="md:rounded-lg transform motion-safe:hover:scale-105 delay-150 duration-300"
             :src="item.coverImgUrl" alt="">
         </div>
@@ -23,7 +23,7 @@
       </div>
     </div>
     <!-- 分页 -->
-    <div class="mx-auto md:max-w-2xl md:mt-6">
+    <div class="mx-auto md:w-128 md:mt-6">
       <a-config-provider :locale="locale">
         <a-pagination v-model:pageSize="pageSize" v-model:current="current" show-quick-jumper :total="total"
           @change="onChange" />

@@ -16,7 +16,7 @@
             md:left-1/2 md:top-1/2 
             md:translate-x-[-50%] 
             md:translate-y-[-50%] 
-            z-40"></div>
+            z-20"></div>
             <img class="md:rounded-lg transform motion-safe:hover:scale-105 delay-150 duration-300" :src="item.picUrl" alt="">
           </div>
           <div class=" md:text-base md:mt-2 text-gray-50 hover:cursor-pointer">{{ item.name }}</div>

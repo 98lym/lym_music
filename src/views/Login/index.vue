@@ -4,49 +4,121 @@
       <div class="section-1">
         <img src="/img/netease-music.png" />
       </div>
-      <div class="title">登录网易云登录</div>
-      <div class="section-2">
-        <div class="input-box">
-          <div class="container">
-            <div class="inputs">
-              <!-- <input id="countryCode" v-model="countryCode" @blur="inputFocus = ''" /> -->
-              <input id="phoneNumber" v-model="formState.phone" @blur="inputFocus = ''" />
-            </div>
-
-          </div>
-        </div>
-        <div class="input-box">
-          <div class="container">
-            <div class="inputs">
-              <input id="password" type="password" v-model="formState.password" @blur="inputFocus = ''"
-                @keyup.enter="login" />
+      <div class="title">网易云登录</div>
+      <div>
+        <div class="section-2" v-if="loginType === 0">
+          <div class="input-box">
+            <div class="container">
+              <div class="inputs">
+                <!-- <input id="countryCode" v-model="countryCode" @blur="inputFocus = ''" /> -->
+                <input id="phoneNumber" v-model="formState.phone" @blur="inputFocus = ''" />
+              </div>
             </div>
           </div>
+          <div class="input-box">
+            <div class="container">
+              <div class="inputs">
+                <input id="password" type="password" v-model="formState.password" @blur="inputFocus = ''"
+                  @keyup.enter="login" />
+              </div>
+            </div>
+          </div>
+          <div class="input-box">
+            <div class="container">
+              <div class="inputs">
+                <input id="captcha" class=" md:w-3/4" type="captcha" v-model="formState.captcha" @blur="inputFocus = ''"
+                  @keyup.enter="login" />
+                <div @click="sentCaptchaFn">验证码</div>
+              </div>
+            </div>
+          </div>
+          <div class="confirm">
+            <button @click="login">
+              登录
+            </button>
+          </div>
         </div>
-        <div class="confirm">
-          <button @click="login">
-            登录
-          </button>
+        <div v-else>
+          <img :src="qrimg" alt="">
+          <span>{{ qrCodeInformation }}</span>
         </div>
+      </div>
+      <div>
+        <span class="cursor-pointer" @click="loginOption">{{ loginTypeName }}</span>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { defineComponent, reactive, ref } from 'vue';
+import { defineComponent, reactive, ref, toRefs } from 'vue';
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import { sentCaptcha, lgoinQrKey, qrCreate, qrCheck } from '@/api/login'
 export default defineComponent({
   name: '_Login',
   setup: function () {
     const store = useStore()
     const router = useRouter()
     const countryCode = ref('+86')
+    const state = reactive({
+      loginType: 0,
+      loginTypeName: '二维码登录',
+      qrimg: '',
+      qrCodeCheckInterval: null,
+      qrCodeInformation: ''
+    })
     const formState = reactive({
       phone: '17705687917',
       password: 'LyMBoy48',
+      captcha: '',
     });
+    const sentCaptchaFn = () => {
+      sentCaptcha({ phone: formState.phone }).then(res => {
+        console.log(res, 'res==========');
+      })
+    }
+    const loginOption = () => {
+      if (state.loginType === 0) {
+        state.loginType = 1
+        state.loginTypeName = '手机号登录'
+        lgoinQrKey({ timestamp: new Date().getTime(), }).then(res => {
+          if (res.code === 200) {
+            qrCreate({ key: res.data.unikey, qrimg: 'qrimg', timestamp: new Date().getTime(), }).then(res => {
+              if (res.code === 200) {
+                state.qrimg = res.data.qrimg
+              }
+            })
+            checkQrCodeLogin(res.data.unikey);
+          }
+        })
+      } else if (state.loginType === 1) {
+        state.loginType = 0
+        state.loginTypeName = '二维码登录'
+        clearInterval(state.qrCodeCheckInterval);
+      }
+    }
+    const checkQrCodeLogin = (key) => {
+      state.qrCodeCheckInterval = setInterval(() => {
+        qrCheck({ key, timestamp: new Date().getTime() }).then(res => {
+          if (res.code === 801) {
+            state.qrCodeInformation = '打开网易云音乐APP扫码登录';
+          } else if (res.code === 802) {
+            state.qrCodeInformation = '扫描成功，请在手机上确认登录';
+          } else if (res.code === 803) {
+            clearInterval(state.qrCodeCheckInterval);
+            state.qrCodeInformation = '登录成功，请稍等...';
+            store.dispatch('qrLogin', res.cookie)
+              .then(() => {
+                router.push('/home')
+              })
+              .catch(() => {
+                // message.error(err.message)
+              })
+          }
+        })
+      }, 1000)
+    }
     const login = () => {
       store.dispatch('login', { ...formState })
         .then(() => {
@@ -59,8 +131,11 @@ export default defineComponent({
 
     return {
       formState,
+      ...toRefs(state),
       login,
-      countryCode
+      countryCode,
+      sentCaptchaFn,
+      loginOption
     };
   },
 })
