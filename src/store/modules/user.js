@@ -45,7 +45,7 @@ const user = {
     // }
   },
   actions: {
-    // 登录
+    // 手机号登录
     login (context, data) {
       login(data).then(res => {
         if (res.code === 200) {
@@ -61,7 +61,7 @@ const user = {
         notification.open({
           message: res.message,
           duration: 3,
-        });
+        })
       }).catch(() => {
         notification.open({
           message: '登录失败',
@@ -73,12 +73,25 @@ const user = {
     qrLogin(context, cookie) {
       context.commit('setToken', cookie)
       loginStatus().then(res=>{
-        console.log(res,'rq');
+        if(res.data.code === 200) {
+          localStorage.setItem('uid', res.data.account.id)
+          localStorage.setItem('avatarUrl', res.data.profile.avatarUrl)
+          notification.open({
+            message: '登录成功',
+            duration: 3,
+          });
+          return
+        }
+        notification.open({
+          message: '登录失败',
+          duration: 3,
+        });
+      }).catch(() => {
+        notification.open({
+          message: '登录失败',
+          duration: 3,
+        });
       })
-      notification.open({
-        message: '登录成功',
-        duration: 3,
-      });
     },
     // 退出
     logOut ({ commit, state }) {

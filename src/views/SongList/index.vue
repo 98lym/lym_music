@@ -9,7 +9,7 @@
         <div class=" text-gray-50 md:text-5xl subpixel-antialiased font-medium">{{ playlist.name }}</div>
         <div class=" text-gray-50 md:text-2xl">{{ createTime }} 创建</div>
         <div class=" text-gray-50 md:text-2xl">{{ playlist.playCount }}次播放</div>
-        <div class="text-gray-50">{{ playlist.description }}</div>
+        <!-- <div class="text-gray-50">{{ playlist.description }}</div> -->
         <div class="md:mt-5">
           <svg-icon @click="playAll" name="play" class="md:text-5xl text-red-600 active:text-red-900"></svg-icon>
         </div>
