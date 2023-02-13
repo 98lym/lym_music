@@ -31,9 +31,9 @@ module.exports = {
       borderRadius: {
         '4xl': '2rem',
       },
-      // margin: {
-      //   ''
-      // }
+      lineHeight: {
+        '16': '4rem',
+       }
     }
   }
 }

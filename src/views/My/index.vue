@@ -58,7 +58,7 @@ export default defineComponent({
 })
 </script>
 <template>
-  <div class="container md:max-w-full md:px-52">
+  <div class="container md:max-w-full md:px-32">
     <div class="flex md:flex-row md:justify-between md:text-4xl md:font-semibold md:mb-5 md:mt-10 text-gray-50">
       <div>创建的歌单</div>
       <div class="md:text-lg lineHeight cursor-pointer" @click="viewAllStatus1 = true">{{ viewAll }}</div>

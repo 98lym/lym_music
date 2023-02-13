@@ -1,5 +1,5 @@
 <template>
-  <div class="CloudSearch container md:max-w-full md:px-52">
+  <div class="CloudSearch container md:max-w-full md:px-32">
     <div class="flex justify-between">
       <div class="flex-1 md:mr-32">
         <div class="text-gray-50 font-semibold md:text-2xl md:mb-3">歌手</div>

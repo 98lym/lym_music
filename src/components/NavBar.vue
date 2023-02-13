@@ -1,7 +1,7 @@
 <template>
   <div class="bg-white dark:bg-gray-900  relative navBar">
     <div
-      class="bgBackdrop flex md:flex-row md:justify-between content-center  md:mb-8  bg-white md:h-16  dark:bg-gray-900 md:bg-opacity-70 fixed md:w-screen z-40 md:px-52">
+      class="bgBackdrop flex md:flex-row md:justify-between content-center  md:mb-8  bg-white md:h-16  dark:bg-gray-900 md:bg-opacity-70 fixed md:w-screen z-40 md:px-32">
       <div class="text-gray-50 navbarLineHeight">
         <span @click="back">
           <svg-icon name="arrow-left" class=" md:text-3xl"></svg-icon>
@@ -51,7 +51,7 @@
     </router-view>
     <div class=" md:h-16"></div>
     <div
-      class="bgBackdrop bg-white md:h-16 inset-x-0 bottom-0  dark:bg-gray-900 md:bg-opacity-70 fixed md:w-screen z-40 md:px-52">
+      class="bgBackdrop bg-white md:h-16 inset-x-0 bottom-0  dark:bg-gray-900 md:bg-opacity-70 fixed md:w-screen z-40 md:px-32">
       <div class=" navbarLineHeight md:w-full">
         <Aplayer></Aplayer>
       </div>

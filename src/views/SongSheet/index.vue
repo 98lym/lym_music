@@ -1,5 +1,5 @@
 <template>
-  <div class="container md:max-w-full md:px-52 songSheet">
+  <div class="container md:max-w-full md:px-32 songSheet">
     <div class=" text-gray-50 md:text-3xl md:mb-5 md:mt-10 flex md:leading-none">
       <div class="md:mr-2">{{ type }}</div>
       <a-button @click="selectClassification">选择分类</a-button>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container md:max-w-full md:px-52 songlist">
+  <div class="container md:max-w-full md:px-32 songlist">
     <div class="md:mt-10 flex md:flex-row">
       <div class="imgbox">
         <img class="md:rounded-lg md:w-60 img" :src="playlist.coverImgUrl" alt="">
