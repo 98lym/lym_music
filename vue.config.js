@@ -24,7 +24,7 @@ module.exports = {
       // 本地的前端  =》 本地的后端  =》 代理我们向另一个服务器发请求 （行得通）
       // 本地的前端  =》 另外一个服务器发请求 （跨域 行不通）
       '/': {
-        target: 'http://localhost:3000', // 我们要代理的地址
+        target: process.env.VUE_APP_NETEASE_API_URL, // 我们要代理的地址
         secure: false,
         changeOrigin: true, // 是否跨域 需要设置此值为true 才可以让本地服务代理我们发出请求
         // 路径重写
