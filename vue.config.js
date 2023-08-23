@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 const name = defaultSettings.title || 'vue Admin Template' // 项目名称
-const port = process.env.port || process.env.npm_config_port || 9528 // dev port
+const port = process.env.port || process.env.npm_config_port || 7777 // dev port
 // All configuration item explanations can be find in https://cli.vuejs.org/config/
 module.exports = {
   transpileDependencies: [],

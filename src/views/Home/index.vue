@@ -78,7 +78,7 @@ export default defineComponent({
       recommendResource().then(res => {
         if (res.code === 200) {
           state.recommendResource = res.recommend
-          state.recommendImg = res.recommend[3].picUrl
+          state.recommendImg = res.recommend[0].picUrl
         }
       })
     }
