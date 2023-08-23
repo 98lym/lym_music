@@ -1,7 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/api/:match*"
+      "source": "/api/:match*",
+      "destination": "xxxl.app/:match*"
     }
   ]
 }
